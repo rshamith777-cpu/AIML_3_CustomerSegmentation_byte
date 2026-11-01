@@ -1,7 +1,10 @@
 # 🛍️ Customer Segmentation via K-Means Clustering & Behavioral Profiling
 
 <p align="center">
-  <img src="outputs/project_banner.png" alt="Customer Segmentation Project Banner" width="100%" />
+  <img src="outputs/web_application.png" alt="RETAIL DYNAMICS — Swiss Graphic Web Application with 3D Deep Space Viewport" width="100%" style="border: 2px solid #18181B; border-radius: 4px; box-shadow: 0 12px 36px rgba(0,0,0,0.12);" />
+</p>
+<p align="center">
+  <em>Figure 1: RETAIL // DYNAMICS — Interactive Swiss Graphic Web Application featuring Real-Time Euclidean Inference, Archetype Presets, and Deep Field 3D Spatial Galaxy Viewport.</em>
 </p>
 
 <p align="center">
@@ -165,13 +168,24 @@ STRATEGY NOTE     : Top-tier commercial segment with high discretionary income a
 -----------------------------------------------------------------
 ```
 
-### 🌌 Interactive 3D Streamlit Web Application (RETAIL DYNAMICS 3D)
+### 🌌 Interactive Web Application (`RETAIL // DYNAMICS`)
 
-Launch the interactive consumer intelligence suite featuring the rotating 3D customer galaxy, archetype cards, and real-time marketing ROI simulator:
+In addition to the production CLI, the project includes an executive-grade web application styled in **International Typographic Style (Swiss Graphic UI)** with an embedded **Deep Field 3D Spatial Galaxy Viewport**:
 
 ```bash
 streamlit run app.py
 ```
+
+<p align="center">
+  <img src="outputs/web_application.jpg" alt="RETAIL DYNAMICS Web Application Interface" width="90%" style="border: 1px solid #18181B; border-radius: 4px; box-shadow: 0 8px 24px rgba(0,0,0,0.1);" />
+</p>
+
+#### Core Application Capabilities:
+- **01 // Interactive Coordinate Controls & Archetype Presets:** Real-time sliders for `Age`, `Annual Income (k$)`, and `Spending Score (1-100)` paired with 6 instant preset buttons (`[💎 VIP POWER]`, `[⚡ IMPULSIVE]`, `[🎯 CAREFUL]`, `[🏷️ FRUGAL]`, `[🛡️ STANDARD]`, `[↺ RESET]`).
+- **02 // Dynamic Archetype Persona Cards:** Automatically renders the assigned customer profile, proximity affinity score (e.g. `98.0%`), scaled $L_2$ Euclidean distance, and behavioral overview.
+- **03 // Deep Field 3D Spatial Galaxy Viewport:** High-contrast 3D orbital space with 200 customer nodes, 5 diamond centroid cores, and an active laser reticle tracking user input. Includes toggles for 2D orthographic floorplans (Income vs Spending) and demographic profiles (Age vs Spending).
+- **04 // Euclidean Distance Telemetry & Distribution:** Live sorted distance to all 5 cluster centroids in standardized feature space with population percentage meters.
+- **05 // Commercial ROI Simulator & Playbooks:** Interactive financial lift modeling enabling growth teams to simulate ad spend, conversion uplift, and projected gross merchandise value (GMV).
 
 ---
 
@@ -187,7 +201,7 @@ AIML_3_CustomerSegmentation_byte/
 ├── notebooks/
 │   └── customer_segmentation.ipynb    # Complete reproducible 9-step Jupyter Notebook
 ├── outputs/
-│   ├── project_banner.png             # Repository hero banner
+│   ├── web_application.png            # Live application interface showcase
 │   ├── eda_pairplot.png               # Exploratory pairplot analysis
 │   ├── elbow_silhouette.png           # Dual k justification (Elbow + Silhouette side-by-side)
 │   ├── clusters_income_spending.png   # 2D Income vs Spending cluster map with centroids
@@ -198,6 +212,7 @@ AIML_3_CustomerSegmentation_byte/
 │   └── dataset_sample.csv             # Cleaned 10-row dataset sample (AVIP deliverable)
 ├── src/
 │   └── assign_cluster.py              # Production CLI inference interface
+├── app.py                             # Interactive Swiss Graphic Web Application (Streamlit + Plotly)
 ├── .gitignore                         # Clean repository exclusions
 ├── requirements.txt                   # Environment dependencies
 └── README.md                          # Engineering report & marketing strategy document
