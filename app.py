@@ -65,8 +65,13 @@ html, body, [class*="css"] {
     background-color: #F4F4F5 !important;
     border-right: 1px solid var(--swiss-border) !important;
 }
-[data-testid="stSidebar"] * {
-    color: var(--swiss-ink) !important;
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3,
+[data-testid="stSidebar"] p,
+[data-testid="stSidebar"] span,
+[data-testid="stSidebar"] label {
+    color: var(--swiss-ink);
 }
 
 /* Swiss Header */
@@ -385,7 +390,23 @@ SWISS_METADATA = {
 
 
 # -----------------------------------------------------------------------------
-# 4. SIDEBAR // TELEMETRY & SWISS GRID INPUTS
+# 4. SESSION STATE INITIALIZATION & PRESET CALLBACKS
+# -----------------------------------------------------------------------------
+if 'active_age' not in st.session_state:
+    st.session_state['active_age'] = 33
+if 'active_income' not in st.session_state:
+    st.session_state['active_income'] = 86
+if 'active_spend' not in st.session_state:
+    st.session_state['active_spend'] = 82
+
+def apply_customer_preset(new_age, new_income, new_spend):
+    st.session_state['active_age'] = int(new_age)
+    st.session_state['active_income'] = int(new_income)
+    st.session_state['active_spend'] = int(new_spend)
+
+
+# -----------------------------------------------------------------------------
+# 5. SIDEBAR // TELEMETRY & DOCUMENTATION
 # -----------------------------------------------------------------------------
 with st.sidebar:
     st.markdown("""
@@ -410,66 +431,86 @@ with st.sidebar:
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown("### 01 // INPUT PARAMETERS")
-    st.caption("Inject coordinate values into standardized Euclidean feature space.")
+    st.markdown("### 01 // ARCHETYPE PRESETS")
+    st.caption("Click to load verified benchmark centroids into active coordinates.")
 
-    # Archetype Presets
-    st.markdown("**QUICK PRESET INGESTION:**")
-    p1, p2 = st.columns(2)
-    with p1:
-        if st.button("💎 VIP POWER", use_container_width=True):
-            st.session_state['age_input'] = 33
-            st.session_state['income_input'] = 86
-            st.session_state['spend_input'] = 82
-        if st.button("⚡ IMPULSIVE", use_container_width=True):
-            st.session_state['age_input'] = 25
-            st.session_state['income_input'] = 41
-            st.session_state['spend_input'] = 62
-        if st.button("🛡️ STANDARD", use_container_width=True):
-            st.session_state['age_input'] = 56
-            st.session_state['income_input'] = 54
-            st.session_state['spend_input'] = 49
-    with p2:
-        if st.button("🎯 CAREFUL", use_container_width=True):
-            st.session_state['age_input'] = 40
-            st.session_state['income_input'] = 86
-            st.session_state['spend_input'] = 19
-        if st.button("🏷️ FRUGAL", use_container_width=True):
-            st.session_state['age_input'] = 46
-            st.session_state['income_input'] = 27
-            st.session_state['spend_input'] = 18
-        if st.button("↺ RESET", use_container_width=True):
-            st.session_state['age_input'] = 33
-            st.session_state['income_input'] = 86
-            st.session_state['spend_input'] = 82
-
-    # State variables
-    if 'age_input' not in st.session_state:
-        st.session_state['age_input'] = 33
-    if 'income_input' not in st.session_state:
-        st.session_state['income_input'] = 86
-    if 'spend_input' not in st.session_state:
-        st.session_state['spend_input'] = 82
-
-    age = st.slider("Customer Age (Years)", min_value=18, max_value=70,
-                    value=st.session_state['age_input'], key="slider_age")
-    income = st.slider("Annual Income (k$)", min_value=15, max_value=140,
-                       value=st.session_state['income_input'], key="slider_income")
-    spending = st.slider("Spending Score (1-100)", min_value=1, max_value=99,
-                         value=st.session_state['spend_input'], key="slider_spend")
+    sb_p1, sb_p2 = st.columns(2)
+    with sb_p1:
+        st.button("💎 VIP POWER", on_click=apply_customer_preset, args=(33, 86, 82), key="sb_vip", use_container_width=True)
+        st.button("⚡ IMPULSIVE", on_click=apply_customer_preset, args=(25, 41, 62), key="sb_imp", use_container_width=True)
+        st.button("🛡️ STANDARD", on_click=apply_customer_preset, args=(56, 54, 49), key="sb_std", use_container_width=True)
+    with sb_p2:
+        st.button("🎯 CAREFUL", on_click=apply_customer_preset, args=(40, 86, 19), key="sb_car", use_container_width=True)
+        st.button("🏷️ FRUGAL", on_click=apply_customer_preset, args=(46, 27, 18), key="sb_fru", use_container_width=True)
+        st.button("↺ RESET", on_click=apply_customer_preset, args=(33, 86, 82), key="sb_rst", use_container_width=True)
 
     st.markdown("---")
     st.markdown("### 02 // PARADIGM NOTE")
     st.markdown("""
     <div style="font-size: 0.78rem; color: #52525B; line-height: 1.5;">
         <b>Unsupervised Learning:</b> No labels exist in clustering. Evaluation is strictly mathematical 
-        (Silhouette 0.4166) and structural. No classification accuracy is computed.
+        (Silhouette 0.4166, Davies-Bouldin 0.8841). No classification accuracy is computed.
     </div>
     """, unsafe_allow_html=True)
 
 
 # -----------------------------------------------------------------------------
-# 5. REAL-TIME CLUSTERING INFERENCE & EUCLIDEAN METRICS
+# 6. MAIN CONTENT // SWISS HEADER & INTERACTIVE INPUT STRIP
+# -----------------------------------------------------------------------------
+st.markdown("""
+<div class="swiss-header-container">
+    <div class="swiss-super">K-MEANS++ SPATIAL CLUSTERING · K=5 · AVIP 2026</div>
+    <div class="swiss-title">RETAIL // <span>DYNAMICS</span></div>
+    <div class="swiss-desc">
+        International Typographic customer segmentation suite. Quantitative 3D spatial partitioning of 200 benchmark mall shoppers via StandardScaler and Euclidean distance optimization.
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
+# Prominent Interactive Input Parameters Card
+st.markdown("""
+<div class="swiss-card" style="border-top: 3px solid #18181B; margin-bottom: 1.5rem; background: #FFFFFF;">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #E4E4E7; padding-bottom: 0.6rem; margin-bottom: 1rem;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; font-weight: 700; color: #09090B; letter-spacing: 0.08em; text-transform: uppercase;">
+            01 // INTERACTIVE CUSTOMER COORDINATES & ARCHETYPE PRESETS
+        </div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: #FF2D20; font-weight: 600;">
+            ● REAL-TIME INGESTION
+        </div>
+    </div>
+""", unsafe_allow_html=True)
+
+# Main Archetype Preset Buttons
+main_p1, main_p2, main_p3, main_p4, main_p5, main_p6 = st.columns(6)
+with main_p1:
+    st.button("💎 VIP POWER", on_click=apply_customer_preset, args=(33, 86, 82), key="main_vip", use_container_width=True)
+with main_p2:
+    st.button("⚡ IMPULSIVE", on_click=apply_customer_preset, args=(25, 41, 62), key="main_imp", use_container_width=True)
+with main_p3:
+    st.button("🎯 CAREFUL", on_click=apply_customer_preset, args=(40, 86, 19), key="main_car", use_container_width=True)
+with main_p4:
+    st.button("🏷️ FRUGAL", on_click=apply_customer_preset, args=(46, 27, 18), key="main_fru", use_container_width=True)
+with main_p5:
+    st.button("🛡️ STANDARD", on_click=apply_customer_preset, args=(56, 54, 49), key="main_std", use_container_width=True)
+with main_p6:
+    st.button("↺ RESET", on_click=apply_customer_preset, args=(33, 86, 82), key="main_rst", use_container_width=True)
+
+st.markdown("<div style='height: 0.8rem;'></div>", unsafe_allow_html=True)
+
+# 3 Sliders with direct two-way session state binding
+in_col1, in_col2, in_col3 = st.columns(3)
+with in_col1:
+    age = st.slider("Customer Age (Years)", min_value=18, max_value=70, key="active_age")
+with in_col2:
+    income = st.slider("Annual Income (k$)", min_value=15, max_value=140, key="active_income")
+with in_col3:
+    spending = st.slider("Spending Score (1-100)", min_value=1, max_value=99, key="active_spend")
+
+st.markdown("</div>", unsafe_allow_html=True)
+
+
+# -----------------------------------------------------------------------------
+# 7. REAL-TIME CLUSTERING INFERENCE & EUCLIDEAN METRICS
 # -----------------------------------------------------------------------------
 input_df = pd.DataFrame([[age, income, spending]],
                         columns=['Age', 'Annual Income (k$)', 'Spending Score (1-100)'])
@@ -486,20 +527,6 @@ dist_df = pd.DataFrame({
     'Distance': np.round(distances, 3),
     'Confidence': np.round(100.0 / (1.0 + distances), 1)
 }).sort_values('Distance')
-
-
-# -----------------------------------------------------------------------------
-# 6. MAIN CONTENT // SWISS HEADER & HERO POSTER
-# -----------------------------------------------------------------------------
-st.markdown("""
-<div class="swiss-header-container">
-    <div class="swiss-super">K-MEANS++ SPATIAL CLUSTERING · K=5 · AVIP 2026</div>
-    <div class="swiss-title">RETAIL // <span>DYNAMICS</span></div>
-    <div class="swiss-desc">
-        International Typographic customer segmentation suite. Quantitative 3D spatial partitioning of 200 benchmark mall shoppers via StandardScaler and Euclidean distance optimization.
-    </div>
-</div>
-""", unsafe_allow_html=True)
 
 # Editorial Swiss Persona Poster
 hero_html = f"""
