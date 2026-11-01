@@ -165,6 +165,14 @@ STRATEGY NOTE     : Top-tier commercial segment with high discretionary income a
 -----------------------------------------------------------------
 ```
 
+### 🌌 Interactive 3D Streamlit Web Application (RETAIL DYNAMICS 3D)
+
+Launch the interactive consumer intelligence suite featuring the rotating 3D customer galaxy, archetype cards, and real-time marketing ROI simulator:
+
+```bash
+streamlit run app.py
+```
+
 ---
 
 ## 📁 Repository Structure
