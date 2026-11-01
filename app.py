@@ -1,7 +1,8 @@
 """
 =============================================================================
-RETAIL DYNAMICS // 3D Customer Intelligence & Behavioral Segmentation Suite
+RETAIL DYNAMICS // Swiss Graphic Customer Intelligence & 3D Galaxy
 Arithmatrix Virtual Internship Program (AVIP 2026) · Task 3 Deliverable
+Style: International Typographic Style (Swiss Style) · Light Editorial
 Unsupervised Learning: K-Means++ Clustering (k=5)
 =============================================================================
 """
@@ -20,203 +21,248 @@ except ImportError:
     HAS_PLOTLY = False
 
 # -----------------------------------------------------------------------------
-# 1. PAGE CONFIGURATION & INJECTED PREMIUM DARK THEME
+# 1. PAGE CONFIGURATION & SWISS INTERNATIONAL TYPOGRAPHIC THEME
 # -----------------------------------------------------------------------------
 st.set_page_config(
-    page_title="Retail Dynamics // 3D Customer Intelligence",
-    page_icon="🌌",
+    page_title="RETAIL // DYNAMICS — Swiss Customer Intelligence",
+    page_icon="🟥",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-CUSTOM_CSS = """
+SWISS_CSS = """
 <style>
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap');
 
 :root {
-    --bg-dark: #12140e;
-    --card-bg: #1a1d15;
-    --card-border: #282e20;
-    --card-hover: #333a29;
-    --accent-lime: #c8ff32;
-    --accent-cyan: #38bdf8;
-    --accent-amber: #f59e0b;
-    --accent-rose: #f43f5e;
-    --accent-purple: #a855f7;
-    --text-primary: #f2f0e7;
-    --text-muted: #8e9483;
+    --swiss-bg: #FAFAFA;
+    --swiss-surface: #FFFFFF;
+    --swiss-ink: #09090B;
+    --swiss-muted: #71717A;
+    --swiss-subtle: #A1A1AA;
+    --swiss-border: #E4E4E7;
+    --swiss-border-strong: #18181B;
+    
+    /* Swiss International Accent Palette */
+    --swiss-red: #FF2D20;
+    --swiss-cobalt: #0047FF;
+    --swiss-emerald: #059669;
+    --swiss-amber: #D97706;
+    --swiss-slate: #64748B;
 }
 
 html, body, [class*="css"] {
-    font-family: 'Space Grotesk', -apple-system, sans-serif;
-    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+    color: var(--swiss-ink) !important;
 }
 
 .stApp {
-    background-color: var(--bg-dark);
+    background-color: var(--swiss-bg) !important;
 }
 
-/* Header & Typography */
-.brand-title {
-    font-size: 2.2rem;
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    color: var(--text-primary);
-    margin-bottom: 0.15rem;
+/* Sidebar Styling: Clean Architectural Paper */
+[data-testid="stSidebar"] {
+    background-color: #F4F4F5 !important;
+    border-right: 1px solid var(--swiss-border) !important;
 }
-.brand-title span {
-    color: var(--accent-lime);
+[data-testid="stSidebar"] * {
+    color: var(--swiss-ink) !important;
 }
-.brand-subtitle {
+
+/* Swiss Header */
+.swiss-header-container {
+    padding: 1.2rem 0 1.6rem 0;
+    border-bottom: 2px solid var(--swiss-border-strong);
+    margin-bottom: 1.8rem;
+}
+.swiss-super {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    letter-spacing: 0.05em;
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    margin-bottom: 1.2rem;
+    color: var(--swiss-red);
+    margin-bottom: 0.35rem;
+}
+.swiss-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1.0;
+    color: var(--swiss-ink);
+    margin: 0;
+    text-transform: uppercase;
+}
+.swiss-title span {
+    color: var(--swiss-cobalt);
+}
+.swiss-desc {
+    font-size: 0.95rem;
+    color: var(--swiss-muted);
+    margin-top: 0.4rem;
+    max-width: 900px;
 }
 
-/* Status Pill */
-.status-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    background: rgba(200, 255, 50, 0.08);
-    border: 1px solid rgba(200, 255, 50, 0.25);
-    color: var(--accent-lime);
-    padding: 0.25rem 0.65rem;
-    border-radius: 9999px;
+/* Swiss Badges & Structural Pills */
+.swiss-badge {
+    display: inline-block;
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.75rem;
-    font-weight: 500;
-    margin-right: 0.5rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    padding: 0.25rem 0.55rem;
+    background: #FFFFFF;
+    border: 1px solid var(--swiss-border-strong);
+    color: var(--swiss-ink);
+    border-radius: 0px;
+    margin-right: 0.4rem;
+    margin-bottom: 0.3rem;
+    text-transform: uppercase;
 }
-.status-pill-blue {
-    background: rgba(56, 189, 248, 0.08);
-    border: 1px solid rgba(56, 189, 248, 0.25);
-    color: var(--accent-cyan);
+.swiss-badge-red {
+    background: var(--swiss-red);
+    border-color: var(--swiss-red);
+    color: #FFFFFF !important;
 }
-.status-pill-purple {
-    background: rgba(168, 85, 247, 0.08);
-    border: 1px solid rgba(168, 85, 247, 0.25);
-    color: var(--accent-purple);
+.swiss-badge-cobalt {
+    background: var(--swiss-cobalt);
+    border-color: var(--swiss-cobalt);
+    color: #FFFFFF !important;
 }
 
-/* Bento Card Containers */
-.bento-card {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 12px;
+/* Swiss Bento Card Containers */
+.swiss-card {
+    background: var(--swiss-surface);
+    border: 1px solid var(--swiss-border);
+    border-radius: 0px;
     padding: 1.4rem;
     margin-bottom: 1.2rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
-    transition: border-color 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
-.bento-card:hover {
-    border-color: var(--card-hover);
+.swiss-card:hover {
+    border-color: var(--swiss-border-strong);
 }
 
-.bento-header {
+.swiss-section-header {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.75rem;
-    letter-spacing: 0.08em;
-    color: var(--accent-lime);
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-}
-
-/* Persona Highlight Card */
-.persona-card {
-    border-radius: 12px;
-    padding: 1.5rem;
-    margin-bottom: 1.2rem;
-    border-left: 5px solid;
-    background: #171a12;
-}
-
-.persona-title {
-    font-size: 1.6rem;
     font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--swiss-muted);
+    border-bottom: 1px solid var(--swiss-border);
+    padding-bottom: 0.4rem;
+    margin-bottom: 1rem;
+}
+
+/* Persona Poster Card (Editorial Hero) */
+.swiss-persona-hero {
+    background: #FFFFFF;
+    border: 2px solid var(--swiss-border-strong);
+    padding: 1.8rem;
+    margin-bottom: 1.8rem;
+    position: relative;
+}
+.swiss-persona-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 100%;
+}
+
+.persona-archetype-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
     margin-bottom: 0.3rem;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
 }
 
-.persona-tag {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.75rem;
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-    text-transform: uppercase;
-    font-weight: 600;
-}
-
-/* Metric display */
-.metric-box {
-    background: #12140e;
-    border: 1px solid #23281c;
-    border-radius: 8px;
-    padding: 0.85rem;
-    text-align: center;
-}
-.metric-val {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: var(--accent-lime);
-}
-.metric-label {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    margin-top: 0.2rem;
-}
-
-/* Playbook strategy box */
-.strategy-box {
-    background: #141610;
-    border: 1px dashed #303726;
-    border-radius: 8px;
+/* Metric Display Cards */
+.swiss-metric-tile {
+    background: #FFFFFF;
+    border: 1px solid var(--swiss-border);
     padding: 1rem;
-    margin-top: 1rem;
+    border-radius: 0px;
+    text-align: left;
+}
+.swiss-metric-tile:hover {
+    border-color: var(--swiss-border-strong);
+}
+.swiss-metric-number {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--swiss-ink);
+    line-height: 1.0;
+}
+.swiss-metric-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    color: var(--swiss-muted);
+    margin-top: 0.4rem;
+    letter-spacing: 0.05em;
 }
 
-/* Sidebar styling */
-[data-testid="stSidebar"] {
-    background-color: #151812;
-    border-right: 1px solid #24291d;
+/* Swiss Grid Presets Buttons */
+.stButton > button {
+    border-radius: 0px !important;
+    border: 1px solid var(--swiss-border-strong) !important;
+    background: #FFFFFF !important;
+    color: var(--swiss-ink) !important;
+    font-family: 'IBM Plex Mono', monospace !important;
+    font-weight: 600 !important;
+    font-size: 0.78rem !important;
+    letter-spacing: 0.02em !important;
+    transition: all 0.15s ease !important;
+}
+.stButton > button:hover {
+    background: var(--swiss-ink) !important;
+    color: #FFFFFF !important;
 }
 
-/* Sliders and inputs */
+/* Sliders */
 .stSlider label, .stSelectbox label, .stNumberInput label {
     font-family: 'IBM Plex Mono', monospace !important;
-    font-size: 0.82rem !important;
-    color: #b2b9a7 !important;
+    font-size: 0.78rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    color: var(--swiss-ink) !important;
 }
 
-/* Tab headers */
+/* Tabs: Architectural Swiss Tab Strip */
 .stTabs [data-baseweb="tab-list"] {
-    gap: 8px;
-    border-bottom: 1px solid #282e20;
+    gap: 0px;
+    border-bottom: 2px solid var(--swiss-border-strong);
+    background: transparent;
 }
 .stTabs [data-baseweb="tab"] {
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 500;
-    color: #8e9483;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--swiss-muted);
     background-color: transparent;
-    border-radius: 6px 6px 0 0;
-    padding: 8px 16px;
+    border-radius: 0px;
+    padding: 10px 22px;
+    border: none;
 }
 .stTabs [aria-selected="true"] {
-    color: var(--accent-lime) !important;
-    border-bottom: 2px solid var(--accent-lime) !important;
-    background-color: rgba(200, 255, 50, 0.04);
+    color: var(--swiss-ink) !important;
+    background-color: #FFFFFF !important;
+    border-bottom: 3px solid var(--swiss-red) !important;
+    font-weight: 700;
 }
 </style>
 """
-st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
+st.markdown(SWISS_CSS, unsafe_allow_html=True)
 
 
 # -----------------------------------------------------------------------------
@@ -233,12 +279,12 @@ def load_ml_assets():
     scaler = joblib.load(scaler_path)
     df_raw = pd.read_csv(data_path)
 
-    # Assign clusters to existing dataset for visualization
+    # Assign clusters to existing dataset for 3D visualization
     features = ['Age', 'Annual Income (k$)', 'Spending Score (1-100)']
     X_scaled = scaler.transform(df_raw[features])
     df_raw['Cluster'] = km.predict(X_scaled)
 
-    # Centroids in real units
+    # Centroids in real physical units
     centroids_real = scaler.inverse_transform(km.cluster_centers_)
     df_centroids = pd.DataFrame(
         centroids_real,
@@ -250,91 +296,87 @@ def load_ml_assets():
 
 km, scaler, df_raw, df_centroids = load_ml_assets()
 
+
 # -----------------------------------------------------------------------------
-# 3. DOMAIN METADATA & ARCHETYPE PLAYBOOKS
+# 3. SWISS ARCHETYPE PROFILES & COLOR SCHEME
 # -----------------------------------------------------------------------------
-CLUSTER_METADATA = {
+SWISS_METADATA = {
     0: {
-        "name": "The Frugal Shopper",
-        "tag": "Value Seeker",
-        "color": "#94A3B8",
-        "border_color": "#64748B",
-        "icon": "🏷️",
-        "summary": "Low Income · Low Spending · Mature (Avg Age 46)",
-        "behavior": "Conservative spenders with low disposable income who strictly buy on necessity or severe markdown. High price elasticity and voucher sensitivity.",
+        "name": "THE FRUGAL SHOPPER",
+        "tag": "SEGMENT 00 · VALUE CONSCIOUS",
+        "color": "#64748B",  # Slate
+        "accent": "#475569",
+        "summary": "Low Income · Low Spending · Mature Cohort (Mean Age: 46.3 yrs)",
+        "behavior": "Conservative purchasers with limited disposable income who transact strictly on price markdowns, seasonal clearance, and essential volume deals. High voucher responsiveness.",
         "tactics": [
-            "Clearance & deep discount alert notifications",
-            "Essential bulk-pack bundles with guaranteed lowest price",
-            "Zero-markup staple item promotions to preserve foot traffic",
-            "Digital coupons redeemable at checkout"
+            "Clearance event mailers and price drop SMS alerts",
+            "Bulk-pack staple goods with guaranteed lowest per-unit cost",
+            "Zero-markup staple goods promotions driving baseline mall foot traffic",
+            "Digital discount vouchers instantly scannable at point of sale"
         ],
-        "roi_archetype_value": 45.0,  # Avg transaction size ($)
+        "roi_archetype_value": 45.0,
         "default_conversion": 4.5
     },
     1: {
-        "name": "The Impulsive Trendsetter",
-        "tag": "Viral Early Adopter",
-        "color": "#F59E0B",
-        "border_color": "#D97706",
-        "icon": "⚡",
-        "summary": "Low-to-Mid Income · High Spending · Young (Avg Age 25)",
-        "behavior": "Youthful demographic with moderate earnings but an aggressive propensity to spend on fast fashion, aesthetics, dining, and viral lifestyle trends.",
+        "name": "THE IMPULSIVE TRENDSETTER",
+        "tag": "SEGMENT 01 · EARLY ADOPTER",
+        "color": "#D97706",  # Swiss Amber
+        "accent": "#B45309",
+        "summary": "Low-to-Mid Income · High Spending · Youth Demographics (Mean Age: 25.2 yrs)",
+        "behavior": "Youthful demographic exhibiting low earnings but maximal spending velocity. Driven by viral social media momentum, aesthetic drops, dining, and impulse acquisitions.",
         "tactics": [
-            "TikTok & Instagram flash drop campaigns with countdown timers",
-            "Gen-Z influencer collaborations and experiential pop-ups",
-            "Buy-Now-Pay-Later (Klarna/Afterpay) frictionless financing",
-            "Limited-edition colorway product releases"
+            "TikTok and Instagram drop announcements with real-time countdown clocks",
+            "Gen-Z micro-influencer collaborations and experiential pop-up lounges",
+            "Buy-Now-Pay-Later (BNPL / Klarna) frictionless checkout options",
+            "Limited-edition merchandise capsules with strict scarcity triggers"
         ],
         "roi_archetype_value": 95.0,
         "default_conversion": 11.0
     },
     2: {
-        "name": "The VIP Power Shopper",
-        "tag": "Core Revenue Engine",
-        "color": "#C8FF32",
-        "border_color": "#A3E635",
-        "icon": "💎",
-        "summary": "High Income · High Spending · Prime Career (Avg Age 33)",
-        "behavior": "The crown jewel segment of the mall. Affluent, trend-conscious, and possessing high purchasing frequency. Expects high-touch service and brand exclusivity.",
+        "name": "THE VIP POWER SHOPPER",
+        "tag": "SEGMENT 02 · ENTERPRISE REVENUE",
+        "color": "#0047FF",  # Swiss International Cobalt Blue
+        "accent": "#0030B8",
+        "summary": "High Income · High Spending · Prime Career (Mean Age: 32.9 yrs)",
+        "behavior": "The foundational revenue pillar of the retail ecosystem. Affluent, brand-loyal, and maintaining peak transaction frequency. Demands bespoke white-glove hospitality.",
         "tactics": [
-            "Private salon appointments and personal shopping concierges",
-            "Invite-only pre-launch previews for luxury collections",
-            "Dedicated VIP parking privileges and private lounge hospitality",
-            "Bespoke tier loyalty perks with unadvertised surprise gifts"
+            "Private salon shopping appointments with dedicated retail stylists",
+            "Exclusive invite-only previews for luxury seasonal collections",
+            "Priority valet parking and private hospitality lounge privileges",
+            "Unadvertised tiered loyalty perks and personalized anniversary gifts"
         ],
         "roi_archetype_value": 420.0,
         "default_conversion": 16.5
     },
     3: {
-        "name": "The Careful Wealthy",
-        "tag": "High-Value Growth Target",
-        "color": "#38BDF8",
-        "border_color": "#0284C7",
-        "icon": "🎯",
-        "summary": "High Income · Low Spending · Mid-Career (Avg Age 40)",
-        "behavior": "Substantial financial capacity, but fiscally conservative. They thoroughly research purchases, prioritize durable quality, and reject superficial hype.",
+        "name": "THE CAREFUL WEALTHY",
+        "tag": "SEGMENT 03 · EXPANSION FRONTIER",
+        "color": "#FF2D20",  # Swiss International Red
+        "accent": "#DC2626",
+        "summary": "High Income · Low Spending · Mid-Career (Mean Age: 39.9 yrs)",
+        "behavior": "Affluent professionals with substantial discretionary capital who exercise strict financial discipline. They reject superficial hype and require tangible proof of quality.",
         "tactics": [
-            "Lifetime warranty and craftsmanship durability campaigns",
-            "ROI and long-term value justification in product literature",
-            "High-end artisanal goods, technical gear, and investment assets",
-            "Zero-pressure private consultations focused on specifications"
+            "Lifetime warranty protection and craftsmanship heritage campaigns",
+            "Detailed technical specifications and durability benchmark documentation",
+            "High-end artisanal goods, precision mechanics, and heirloom asset marketing",
+            "Low-pressure consultations emphasizing long-term value retention"
         ],
         "roi_archetype_value": 280.0,
         "default_conversion": 6.8
     },
     4: {
-        "name": "The Standard Shopper",
-        "tag": "Bedrock Foundation",
-        "color": "#A855F7",
-        "border_color": "#9333EA",
-        "icon": "🛡️",
-        "summary": "Moderate Income · Moderate Spending · Older (Avg Age 56)",
-        "behavior": "The dependable median customer. Traditional shopping rhythm, family-oriented needs, balanced budgets, and strong seasonal consistency.",
+        "name": "THE STANDARD SHOPPER",
+        "tag": "SEGMENT 04 · BEDROCK COHORT",
+        "color": "#059669",  # Swiss Emerald Green
+        "accent": "#047857",
+        "summary": "Moderate Income · Moderate Spending · Mature (Mean Age: 55.6 yrs)",
+        "behavior": "The dependable median population. Consistent household needs, balanced expenditure cycles, and reliable multi-category seasonal shopping routines.",
         "tactics": [
-            "Standard seasonal sales (Back-to-School, Holidays, Summer)",
-            "Family combo deals and multi-category bundle discounts",
-            "Straightforward cashback loyalty points programs",
-            "Dependable omnichannel inventory and hassle-free returns"
+            "Predictable seasonal promotional cycles (Spring, Back-to-School, Holidays)",
+            "Family combo packages and household multi-category bundles",
+            "Transparent cashback point-based rewards programs",
+            "Omnichannel inventory pickup and straightforward returns processing"
         ],
         "roi_archetype_value": 110.0,
         "default_conversion": 8.2
@@ -343,62 +385,72 @@ CLUSTER_METADATA = {
 
 
 # -----------------------------------------------------------------------------
-# 4. SIDEBAR // TELEMETRY & INPUT CONTROLS
+# 4. SIDEBAR // TELEMETRY & SWISS GRID INPUTS
 # -----------------------------------------------------------------------------
 with st.sidebar:
-    st.markdown('<div class="brand-title">RETAIL<span>.3D</span></div>', unsafe_allow_html=True)
-    st.markdown('<div class="brand-subtitle">Consumer Dynamics Suite</div>', unsafe_allow_html=True)
-
     st.markdown("""
-    <div style="margin-bottom: 1.2rem;">
-        <span class="status-pill">● MODEL ACTIVE</span>
-        <span class="status-pill status-pill-blue">k = 5</span>
-        <span class="status-pill status-pill-purple">N = 200</span>
+    <div style="padding-bottom: 0.8rem; border-bottom: 2px solid #18181B; margin-bottom: 1.2rem;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; font-weight: 700; color: #FF2D20; letter-spacing: 0.1em;">
+            AVIP 2026 // TASK 03
+        </div>
+        <div style="font-family: 'Inter', sans-serif; font-size: 1.6rem; font-weight: 900; letter-spacing: -0.03em; color: #09090B;">
+            SWISS // ML
+        </div>
+        <div style="font-size: 0.78rem; color: #71717A;">
+            International Spatial Clustering
+        </div>
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown("### 🎛️ Customer Coordinates")
-    st.caption("Adjust sliders or trigger preset customer archetypes.")
+    st.markdown("""
+    <div style="margin-bottom: 1.2rem;">
+        <span class="swiss-badge swiss-badge-red">K = 5</span>
+        <span class="swiss-badge">N = 200</span>
+        <span class="swiss-badge swiss-badge-cobalt">SIL: 0.4166</span>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("### 01 // INPUT PARAMETERS")
+    st.caption("Inject coordinate values into standardized Euclidean feature space.")
 
     # Archetype Presets
-    st.markdown("**Quick Archetype Presets:**")
-    p_col1, p_col2 = st.columns(2)
-    with p_col1:
-        if st.button("💎 VIP Power", use_container_width=True):
+    st.markdown("**QUICK PRESET INGESTION:**")
+    p1, p2 = st.columns(2)
+    with p1:
+        if st.button("💎 VIP POWER", use_container_width=True):
             st.session_state['age_input'] = 33
             st.session_state['income_input'] = 86
             st.session_state['spend_input'] = 82
-        if st.button("⚡ Impulsive", use_container_width=True):
+        if st.button("⚡ IMPULSIVE", use_container_width=True):
             st.session_state['age_input'] = 25
             st.session_state['income_input'] = 41
             st.session_state['spend_input'] = 62
-        if st.button("🛡️ Standard", use_container_width=True):
+        if st.button("🛡️ STANDARD", use_container_width=True):
             st.session_state['age_input'] = 56
             st.session_state['income_input'] = 54
             st.session_state['spend_input'] = 49
-    with p_col2:
-        if st.button("🎯 Careful Wealth", use_container_width=True):
+    with p2:
+        if st.button("🎯 CAREFUL", use_container_width=True):
             st.session_state['age_input'] = 40
             st.session_state['income_input'] = 86
             st.session_state['spend_input'] = 19
-        if st.button("🏷️ Frugal", use_container_width=True):
+        if st.button("🏷️ FRUGAL", use_container_width=True):
             st.session_state['age_input'] = 46
             st.session_state['income_input'] = 27
             st.session_state['spend_input'] = 18
-        if st.button("🔄 Reset", use_container_width=True):
-            st.session_state['age_input'] = 32
-            st.session_state['income_input'] = 75
-            st.session_state['spend_input'] = 65
+        if st.button("↺ RESET", use_container_width=True):
+            st.session_state['age_input'] = 33
+            st.session_state['income_input'] = 86
+            st.session_state['spend_input'] = 82
 
-    # Fallback state initialization
+    # State variables
     if 'age_input' not in st.session_state:
-        st.session_state['age_input'] = 32
+        st.session_state['age_input'] = 33
     if 'income_input' not in st.session_state:
-        st.session_state['income_input'] = 75
+        st.session_state['income_input'] = 86
     if 'spend_input' not in st.session_state:
-        st.session_state['spend_input'] = 65
+        st.session_state['spend_input'] = 82
 
-    # Sliders
     age = st.slider("Customer Age (Years)", min_value=18, max_value=70,
                     value=st.session_state['age_input'], key="slider_age")
     income = st.slider("Annual Income (k$)", min_value=15, max_value=140,
@@ -407,12 +459,13 @@ with st.sidebar:
                          value=st.session_state['spend_input'], key="slider_spend")
 
     st.markdown("---")
-    st.markdown("### 📐 Unsupervised Paradigm")
-    st.caption(
-        "Clustering partitions anonymous data points without labels. "
-        "There is no train/test split or accuracy metric. Cluster quality "
-        "is measured via silhouette compactness (0.4166) and business utility."
-    )
+    st.markdown("### 02 // PARADIGM NOTE")
+    st.markdown("""
+    <div style="font-size: 0.78rem; color: #52525B; line-height: 1.5;">
+        <b>Unsupervised Learning:</b> No labels exist in clustering. Evaluation is strictly mathematical 
+        (Silhouette 0.4166) and structural. No classification accuracy is computed.
+    </div>
+    """, unsafe_allow_html=True)
 
 
 # -----------------------------------------------------------------------------
@@ -422,120 +475,133 @@ input_df = pd.DataFrame([[age, income, spending]],
                         columns=['Age', 'Annual Income (k$)', 'Spending Score (1-100)'])
 input_scaled = scaler.transform(input_df)
 predicted_cluster = int(km.predict(input_scaled)[0])
-meta = CLUSTER_METADATA[predicted_cluster]
+meta = SWISS_METADATA[predicted_cluster]
 
 # Compute Euclidean distances to all 5 centroids in StandardScaler space
 cluster_centers_scaled = km.cluster_centers_
 distances = np.linalg.norm(cluster_centers_scaled - input_scaled, axis=1)
 dist_df = pd.DataFrame({
     'Cluster': range(5),
-    'Segment': [CLUSTER_METADATA[i]['name'] for i in range(5)],
-    'Scaled Distance': np.round(distances, 3)
-}).sort_values('Scaled Distance')
+    'Segment': [SWISS_METADATA[i]['name'] for i in range(5)],
+    'Distance': np.round(distances, 3),
+    'Confidence': np.round(100.0 / (1.0 + distances), 1)
+}).sort_values('Distance')
 
 
 # -----------------------------------------------------------------------------
-# 6. MAIN CONTENT // HERO BANNER & REAL-TIME PREDICTION
+# 6. MAIN CONTENT // SWISS HEADER & HERO POSTER
 # -----------------------------------------------------------------------------
-st.markdown('<div class="brand-title">RETAIL DYNAMICS <span>// 3D GALAXY</span></div>', unsafe_allow_html=True)
-st.markdown(
-    '<div class="brand-subtitle">'
-    'Autonomous Unsupervised Behavioral Intelligence · K-Means++ Clustering (k=5) · AVIP 2026'
-    '</div>',
-    unsafe_allow_html=True
-)
+st.markdown("""
+<div class="swiss-header-container">
+    <div class="swiss-super">K-MEANS++ SPATIAL CLUSTERING · K=5 · AVIP 2026</div>
+    <div class="swiss-title">RETAIL // <span>DYNAMICS</span></div>
+    <div class="swiss-desc">
+        International Typographic customer segmentation suite. Quantitative 3D spatial partitioning of 200 benchmark mall shoppers via StandardScaler and Euclidean distance optimization.
+    </div>
+</div>
+""", unsafe_allow_html=True)
 
-# Persona Announcement Banner
-persona_card_html = f"""
-<div class="persona-card" style="border-left-color: {meta['color']};">
+# Editorial Swiss Persona Poster
+hero_html = f"""
+<div class="swiss-persona-hero" style="border-left: 10px solid {meta['color']};">
     <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
         <div>
-            <div class="bento-header" style="color: {meta['color']};">
-                TARGET IDENTIFIED // CLUSTER {predicted_cluster}
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; font-weight: 700; color: {meta['color']}; letter-spacing: 0.1em;">
+                PARTITION ASSIGNMENT // CLUSTER 0{predicted_cluster}
             </div>
-            <div class="persona-title">
-                {meta['icon']} {meta['name']}
-                <span class="persona-tag" style="background: rgba({int(meta['color'][1:3], 16)}, {int(meta['color'][3:5], 16)}, {int(meta['color'][5:7], 16)}, 0.15); color: {meta['color']};">
+            <div class="persona-archetype-name" style="color: #09090B;">
+                {meta['name']}
+            </div>
+            <div style="margin-top: 0.2rem;">
+                <span class="swiss-badge" style="background: {meta['color']}; color: #FFFFFF !important; border-color: {meta['color']};">
                     {meta['tag']}
                 </span>
+                <span class="swiss-badge">
+                    N = {df_raw['Cluster'].value_counts()[predicted_cluster]} SHOPPERS ({df_raw['Cluster'].value_counts()[predicted_cluster]/2.0:.1f}%)
+                </span>
             </div>
-            <p style="color: #cbd5e1; font-size: 0.95rem; margin-top: 0.3rem; max-width: 800px;">
+            <p style="color: #52525B; font-size: 0.95rem; margin-top: 0.8rem; max-width: 820px; line-height: 1.6;">
                 {meta['behavior']}
             </p>
         </div>
-        <div style="text-align: right; margin-top: 0.5rem;">
-            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: #8e9483;">PROXIMITY CONFIDENCE</div>
-            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 1.8rem; font-weight: 700; color: {meta['color']};">
+        <div style="border: 2px solid #18181B; padding: 1rem 1.4rem; background: #FFFFFF; text-align: right; min-width: 180px; margin-top: 0.6rem;">
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; font-weight: 700; color: #71717A; letter-spacing: 0.08em; text-transform: uppercase;">
+                AFFINITY SCORE
+            </div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 2.4rem; font-weight: 800; color: {meta['color']}; line-height: 1.0; margin: 0.3rem 0;">
                 {100.0 / (1.0 + distances[predicted_cluster]):.1f}%
             </div>
-            <div style="font-size: 0.75rem; color: #8e9483;">Scaled Dist: {distances[predicted_cluster]:.3f}</div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: #71717A;">
+                L2 DIST: {distances[predicted_cluster]:.3f}
+            </div>
         </div>
     </div>
 </div>
 """
-st.markdown(persona_card_html, unsafe_allow_html=True)
+st.markdown(hero_html, unsafe_allow_html=True)
+
 
 # -----------------------------------------------------------------------------
-# 7. MAIN TABS: 3D GALAXY // TACTICAL PLAYBOOK // ROI SIMULATOR // TELEMETRY
+# 7. MAIN INTERACTIVE TABS (SWISS NUMBERED HEADERS)
 # -----------------------------------------------------------------------------
 tab_3d, tab_playbook, tab_roi, tab_metrics = st.tabs([
-    "🌌 3D Customer Galaxy",
-    "📋 Strategic Playbook",
-    "💼 Campaign ROI Simulator",
-    "📊 Evaluation Telemetry"
+    "01 // 3D Spatial Galaxy",
+    "02 // Strategic Playbooks",
+    "03 // Campaign ROI Simulator",
+    "04 // Evaluation Benchmarks"
 ])
 
 # -----------------------------------------------------------------------------
-# TAB 1: 3D CUSTOMER GALAXY
+# TAB 1: 3D SPATIAL GALAXY (LUMINOUS SWISS GRAPHIC RENDERING)
 # -----------------------------------------------------------------------------
 with tab_3d:
-    col_vis, col_side = st.columns([2.8, 1.2])
+    col_vis, col_side = st.columns([2.7, 1.3])
 
     with col_vis:
         if HAS_PLOTLY:
             fig = go.Figure()
 
-            # Plot existing 200 mall customers colored by cluster
+            # Plot existing 200 mall customers with high-contrast Swiss palette
             for c_id in range(5):
                 subset = df_raw[df_raw['Cluster'] == c_id]
-                c_meta = CLUSTER_METADATA[c_id]
+                c_meta = SWISS_METADATA[c_id]
                 fig.add_trace(go.Scatter3d(
                     x=subset['Annual Income (k$)'],
                     y=subset['Spending Score (1-100)'],
                     z=subset['Age'],
                     mode='markers',
-                    name=f"C{c_id}: {c_meta['name']}",
+                    name=f"C0{c_id} · {c_meta['name']}",
                     marker=dict(
                         size=5,
                         color=c_meta['color'],
-                        opacity=0.68,
-                        line=dict(width=0.5, color='#141610')
+                        opacity=0.82,
+                        line=dict(width=0.6, color='#09090B')
                     ),
                     hovertemplate=(
-                        f"<b>{c_meta['name']}</b><br>"
-                        "Income: $%{x}k<br>"
-                        "Spending Score: %{y}<br>"
-                        "Age: %{z} yrs<extra></extra>"
+                        f"<b>{c_meta['name']} (C{c_id})</b><br>"
+                        "Annual Income: $%{x}k<br>"
+                        "Spending Score: %{y}/100<br>"
+                        "Customer Age: %{z} yrs<extra></extra>"
                     )
                 ))
 
-            # Plot Cluster Centroids as prominent gold-ringed diamonds
+            # Plot Cluster Centroids as prominent black diamonds with bold white border
             fig.add_trace(go.Scatter3d(
                 x=df_centroids['Annual Income (k$)'],
                 y=df_centroids['Spending Score (1-100)'],
                 z=df_centroids['Age'],
                 mode='markers+text',
-                name='Centroids (Real Units)',
-                text=[f"C{i} Centroid" for i in range(5)],
+                name='CENTROIDS (REAL UNITS)',
+                text=[f"C0{i} CORE" for i in range(5)],
                 textposition="top center",
-                textfont=dict(family="IBM Plex Mono", size=10, color="#ffffff"),
+                textfont=dict(family="IBM Plex Mono", size=10, color="#09090B"),
                 marker=dict(
-                    size=9,
+                    size=10,
                     symbol='diamond',
-                    color='#ffffff',
-                    line=dict(width=2, color='#c8ff32')
+                    color='#09090B',
+                    line=dict(width=2, color='#FFFFFF')
                 ),
-                hovertemplate="<b>Centroid C%{pointNumber}</b><br>Income: $%{x:.1f}k<br>Spending: %{y:.1f}<br>Age: %{z:.1f}<extra></extra>"
+                hovertemplate="<b>CENTROID C0%{pointNumber}</b><br>Income: $%{x:.1f}k<br>Spending: %{y:.1f}<br>Age: %{z:.1f} yrs<extra></extra>"
             ))
 
             # Project current input user in 3D Euclidean space
@@ -547,18 +613,18 @@ with tab_3d:
                 name='⚡ ACTIVE TARGET',
                 text=['ACTIVE TARGET'],
                 textposition="bottom center",
-                textfont=dict(family="IBM Plex Mono", size=12, color=meta['color']),
+                textfont=dict(family="IBM Plex Mono", size=12, color="#09090B"),
                 marker=dict(
-                    size=13,
+                    size=14,
                     symbol='cross',
                     color=meta['color'],
-                    line=dict(width=2, color='#ffffff')
+                    line=dict(width=2.5, color='#09090B')
                 ),
                 hovertemplate=(
                     "<b>⚡ ACTIVE TARGET</b><br>"
-                    f"Cluster: {predicted_cluster} ({meta['name']})<br>"
+                    f"Segment: {meta['name']} (C{predicted_cluster})<br>"
                     f"Income: ${income}k<br>"
-                    f"Spending: {spending}<br>"
+                    f"Spending: {spending}/100<br>"
                     f"Age: {age} yrs<extra></extra>"
                 )
             ))
@@ -566,103 +632,105 @@ with tab_3d:
             fig.update_layout(
                 scene=dict(
                     xaxis=dict(
-                        title="Annual Income (k$)",
-                        backgroundcolor="#141610",
-                        gridcolor="#282e20",
+                        title=dict(text="ANNUAL INCOME (k$)", font=dict(family="IBM Plex Mono", size=11, color="#09090B")),
+                        backgroundcolor="#FAFAFA",
+                        gridcolor="#E4E4E7",
                         showbackground=True,
-                        zerolinecolor="#3a432d"
+                        zerolinecolor="#18181B"
                     ),
                     yaxis=dict(
-                        title="Spending Score (1-100)",
-                        backgroundcolor="#141610",
-                        gridcolor="#282e20",
+                        title=dict(text="SPENDING SCORE (1-100)", font=dict(family="IBM Plex Mono", size=11, color="#09090B")),
+                        backgroundcolor="#FAFAFA",
+                        gridcolor="#E4E4E7",
                         showbackground=True,
-                        zerolinecolor="#3a432d"
+                        zerolinecolor="#18181B"
                     ),
                     zaxis=dict(
-                        title="Age (Years)",
-                        backgroundcolor="#141610",
-                        gridcolor="#282e20",
+                        title=dict(text="AGE (YEARS)", font=dict(family="IBM Plex Mono", size=11, color="#09090B")),
+                        backgroundcolor="#FAFAFA",
+                        gridcolor="#E4E4E7",
                         showbackground=True,
-                        zerolinecolor="#3a432d"
+                        zerolinecolor="#18181B"
                     ),
                     camera=dict(
-                        eye=dict(x=1.6, y=-1.6, z=1.2)
+                        eye=dict(x=1.7, y=-1.7, z=1.2)
                     )
                 ),
-                paper_bgcolor="#141610",
-                plot_bgcolor="#141610",
+                paper_bgcolor="#FFFFFF",
+                plot_bgcolor="#FAFAFA",
                 margin=dict(l=0, r=0, t=10, b=0),
                 legend=dict(
-                    bgcolor="rgba(20, 22, 16, 0.8)",
-                    bordercolor="#282e20",
+                    bgcolor="rgba(255, 255, 255, 0.95)",
+                    bordercolor="#18181B",
                     borderwidth=1,
-                    font=dict(family="Space Grotesk", color="#e2e8f0", size=10)
+                    font=dict(family="IBM Plex Mono", color="#09090B", size=10)
                 ),
-                height=580
+                height=590
             )
 
             st.plotly_chart(fig, use_container_width=True)
         else:
-            st.warning("Plotly is initializing. Refresh the page to experience the 3D rotating visualizer.")
+            st.warning("Plotly is initializing...")
 
     with col_side:
-        st.markdown('<div class="bento-header">EUCLIDEAN DISTANCE MATRIX</div>', unsafe_allow_html=True)
-        st.caption("Distance from current coordinate to each centroid in scaled feature space.")
+        st.markdown('<div class="swiss-section-header">EUCLIDEAN DISTANCE MATRIX</div>', unsafe_allow_html=True)
+        st.caption("Standardized Euclidean distance from input to each centroid vector.")
 
         for _, row in dist_df.iterrows():
             cid = int(row['Cluster'])
-            cm = CLUSTER_METADATA[cid]
+            cm = SWISS_METADATA[cid]
             is_active = (cid == predicted_cluster)
-            border_style = f"border: 1px solid {cm['color']};" if is_active else "border: 1px solid #23281c;"
-            bg_style = "background: rgba(200, 255, 50, 0.05);" if is_active else "background: #171a12;"
+            border_weight = "2px solid #09090B" if is_active else "1px solid #E4E4E7"
+            bg_tone = "#FFFFFF" if not is_active else "#F4F4F5"
 
             st.markdown(f"""
-            <div style="{bg_style} {border_style} border-radius: 8px; padding: 0.65rem 0.85rem; margin-bottom: 0.5rem;">
+            <div style="background: {bg_tone}; border: {border_weight}; border-left: 6px solid {cm['color']}; padding: 0.65rem 0.85rem; margin-bottom: 0.5rem;">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <span style="font-weight: 600; font-size: 0.88rem; color: {cm['color']};">
-                        {cm['icon']} Cluster {cid}
+                    <span style="font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 0.82rem; color: #09090B;">
+                        CLUSTER 0{cid}
                     </span>
-                    <span style="font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; color: #e2e8f0;">
-                        d = {row['Scaled Distance']}
+                    <span style="font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; font-weight: 600; color: {cm['color']};">
+                        d = {row['Distance']}
                     </span>
                 </div>
-                <div style="font-size: 0.75rem; color: #8e9483; margin-top: 0.15rem;">
+                <div style="font-size: 0.78rem; font-weight: 600; color: #52525B; margin-top: 0.15rem;">
                     {cm['name']}
                 </div>
             </div>
             """, unsafe_allow_html=True)
 
-        st.markdown('<div class="bento-header" style="margin-top: 1.2rem;">DATASET DISTRIBUTION</div>', unsafe_allow_html=True)
+        st.markdown('<div class="swiss-section-header" style="margin-top: 1.5rem;">CLUSTER SIZE BREAKDOWN</div>', unsafe_allow_html=True)
         counts = df_raw['Cluster'].value_counts().sort_index()
         for cid in range(5):
             pct = (counts[cid] / 200.0) * 100
             st.markdown(f"""
-            <div style="font-size: 0.78rem; margin-bottom: 0.35rem;">
-                <span style="color: {CLUSTER_METADATA[cid]['color']}; font-weight: 600;">Cluster {cid}:</span>
-                <span style="color: #cbd5e1;"> {counts[cid]} shoppers ({pct:.1f}%)</span>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.74rem; display: flex; justify-content: space-between; margin-bottom: 0.2rem;">
+                <span style="color: {SWISS_METADATA[cid]['color']}; font-weight: 700;">C0{cid} · {SWISS_METADATA[cid]['name'][:14]}...</span>
+                <span>{counts[cid]} ({pct:.1f}%)</span>
             </div>
             """, unsafe_allow_html=True)
             st.progress(pct / 100.0)
 
 
 # -----------------------------------------------------------------------------
-# TAB 2: STRATEGIC PLAYBOOK
+# TAB 2: STRATEGIC PLAYBOOKS
 # -----------------------------------------------------------------------------
 with tab_playbook:
-    st.markdown('<div class="bento-header">TACTICAL MARKETING PLAYBOOK</div>', unsafe_allow_html=True)
+    st.markdown('<div class="swiss-section-header">02 // ENTERPRISE MARKETING PLAYBOOK</div>', unsafe_allow_html=True)
     st.write(
-        f"Detailed enterprise targeting protocol for **{meta['name']} (Cluster {predicted_cluster})**. "
-        "Each playbook provides actionable conversion levers designed for CMO and growth teams."
+        f"Tactical commercial protocol tailored to **{meta['name']} (Cluster 0{predicted_cluster})**. "
+        "Engineered for CMO and growth allocation strategies."
     )
 
-    p_col_left, p_col_right = st.columns([1.6, 1.4])
+    p_left, p_right = st.columns([1.6, 1.4])
 
-    with p_col_left:
+    with p_left:
         st.markdown(f"""
-        <div class="bento-card">
-            <h4 style="color: {meta['color']}; margin-top: 0;">🎯 Recommended Conversion Channels</h4>
-            <ul style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.8;">
+        <div class="swiss-card" style="border-top: 4px solid {meta['color']};">
+            <h4 style="font-family: 'Inter', sans-serif; font-weight: 800; font-size: 1.15rem; color: #09090B; margin-top: 0; text-transform: uppercase;">
+                Recommended Conversion Levers
+            </h4>
+            <ul style="color: #3F3F46; font-size: 0.95rem; line-height: 1.9; padding-left: 1.2rem;">
         """, unsafe_allow_html=True)
         for tactic in meta['tactics']:
             st.markdown(f"<li><b>{tactic}</b></li>", unsafe_allow_html=True)
@@ -671,50 +739,57 @@ with tab_playbook:
         </div>
         """, unsafe_allow_html=True)
 
-    with p_col_right:
+    with p_right:
         st.markdown(f"""
-        <div class="bento-card">
-            <h4 style="color: {meta['color']}; margin-top: 0;">📊 Centroid Benchmark Coordinates</h4>
-            <table style="width: 100%; font-size: 0.9rem; color: #cbd5e1;">
-                <tr style="border-bottom: 1px solid #282e20;">
-                    <td style="padding: 0.5rem 0;">Annual Income Benchmark:</td>
-                    <td style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; text-align: right;">
-                        ${df_centroids.loc[predicted_cluster, 'Annual Income (k$)']:.1f}k
+        <div class="swiss-card" style="border-top: 4px solid #18181B;">
+            <h4 style="font-family: 'Inter', sans-serif; font-weight: 800; font-size: 1.15rem; color: #09090B; margin-top: 0; text-transform: uppercase;">
+                Cluster Benchmark Core (Real Units)
+            </h4>
+            <table style="width: 100%; font-size: 0.88rem; color: #27272A; border-collapse: collapse;">
+                <tr style="border-bottom: 1px solid #E4E4E7;">
+                    <td style="padding: 0.6rem 0; font-weight: 500;">Centroid Annual Income:</td>
+                    <td style="font-family: 'IBM Plex Mono', monospace; font-weight: 700; text-align: right;">
+                        ${df_centroids.loc[predicted_cluster, 'Annual Income (k$)']:.1f}k / yr
                     </td>
                 </tr>
-                <tr style="border-bottom: 1px solid #282e20;">
-                    <td style="padding: 0.5rem 0;">Spending Score Benchmark:</td>
-                    <td style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; text-align: right;">
+                <tr style="border-bottom: 1px solid #E4E4E7;">
+                    <td style="padding: 0.6rem 0; font-weight: 500;">Centroid Spending Score:</td>
+                    <td style="font-family: 'IBM Plex Mono', monospace; font-weight: 700; text-align: right;">
                         {df_centroids.loc[predicted_cluster, 'Spending Score (1-100)']:.1f} / 100
                     </td>
                 </tr>
-                <tr style="border-bottom: 1px solid #282e20;">
-                    <td style="padding: 0.5rem 0;">Age Benchmark:</td>
-                    <td style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; text-align: right;">
+                <tr style="border-bottom: 1px solid #E4E4E7;">
+                    <td style="padding: 0.6rem 0; font-weight: 500;">Centroid Mean Age:</td>
+                    <td style="font-family: 'IBM Plex Mono', monospace; font-weight: 700; text-align: right;">
                         {df_centroids.loc[predicted_cluster, 'Age']:.1f} yrs
                     </td>
                 </tr>
                 <tr>
-                    <td style="padding: 0.5rem 0;">Natural Cluster Size:</td>
-                    <td style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; text-align: right; color: {meta['color']};">
-                        {df_raw['Cluster'].value_counts()[predicted_cluster]} shoppers ({df_raw['Cluster'].value_counts()[predicted_cluster]/2.0:.1f}%)
+                    <td style="padding: 0.6rem 0; font-weight: 500;">Cluster Population Share:</td>
+                    <td style="font-family: 'IBM Plex Mono', monospace; font-weight: 700; text-align: right; color: {meta['color']};">
+                        {df_raw['Cluster'].value_counts()[predicted_cluster]} Shoppers ({df_raw['Cluster'].value_counts()[predicted_cluster]/2.0:.1f}%)
                     </td>
                 </tr>
             </table>
         </div>
         """, unsafe_allow_html=True)
 
-    st.markdown("### 🏛️ All 5 Archetype Playbooks Comparison")
+    st.markdown('<div class="swiss-section-header" style="margin-top: 1.5rem;">ALL 5 COHORTS OVERVIEW</div>', unsafe_allow_html=True)
     grid_cols = st.columns(5)
     for idx, c_col in enumerate(grid_cols):
-        c_info = CLUSTER_METADATA[idx]
+        c_info = SWISS_METADATA[idx]
         with c_col:
             st.markdown(f"""
-            <div class="bento-card" style="padding: 0.9rem; font-size: 0.85rem; height: 100%; border-top: 3px solid {c_info['color']};">
-                <div style="font-size: 1.3rem;">{c_info['icon']}</div>
-                <div style="font-weight: 700; color: {c_info['color']}; margin: 0.3rem 0;">C{idx}: {c_info['name']}</div>
-                <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: #8e9483; margin-bottom: 0.5rem;">{c_info['tag']}</div>
-                <div style="color: #94a3b8; font-size: 0.78rem;">{c_info['summary']}</div>
+            <div class="swiss-card" style="padding: 1rem; border-top: 5px solid {c_info['color']}; height: 100%;">
+                <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; font-weight: 700; color: {c_info['color']};">
+                    CLUSTER 0{idx}
+                </div>
+                <div style="font-family: 'Inter', sans-serif; font-weight: 800; font-size: 0.95rem; color: #09090B; margin: 0.3rem 0;">
+                    {c_info['name']}
+                </div>
+                <div style="font-size: 0.78rem; color: #71717A; line-height: 1.4;">
+                    {c_info['summary']}
+                </div>
             </div>
             """, unsafe_allow_html=True)
 
@@ -723,71 +798,71 @@ with tab_playbook:
 # TAB 3: CAMPAIGN ROI SIMULATOR
 # -----------------------------------------------------------------------------
 with tab_roi:
-    st.markdown('<div class="bento-header">RETAIL CAMPAIGN REVENUE & ROI SIMULATOR</div>', unsafe_allow_html=True)
-    st.write("Simulate enterprise ad spend allocations, conversion uplift, and revenue generation on segmented customer cohorts.")
+    st.markdown('<div class="swiss-section-header">03 // CAMPAIGN CAPITAL ALLOCATION & ROI SIMULATOR</div>', unsafe_allow_html=True)
+    st.write("Quantitative model evaluating marketing capital deployment, customer acquisition costs (CAC), and net gross merchandise value (GMV).")
 
     roi_col1, roi_col2 = st.columns([1.5, 2.5])
 
     with roi_col1:
-        st.markdown('<div class="bento-card">', unsafe_allow_html=True)
-        st.markdown("#### 🎯 Campaign Parameters")
+        st.markdown('<div class="swiss-card" style="border-top: 4px solid #18181B;">', unsafe_allow_html=True)
+        st.markdown("#### 🎯 CAMPAIGN HYPOTHESIS")
 
         target_cohort = st.selectbox(
-            "Select Target Segment Cohort:",
+            "Target Cohort Partition:",
             options=range(5),
             index=predicted_cluster,
-            format_func=lambda x: f"Cluster {x} — {CLUSTER_METADATA[x]['name']}"
+            format_func=lambda x: f"Cluster 0{x} — {SWISS_METADATA[x]['name']}"
         )
 
-        cohort_meta = CLUSTER_METADATA[target_cohort]
+        cohort_meta = SWISS_METADATA[target_cohort]
 
         campaign_budget = st.slider("Campaign Budget ($ USD)", min_value=1000, max_value=50000, value=8500, step=500)
-        audience_pool = st.number_input("Target Audience Size (Reachable Shoppers)", min_value=100, max_value=50000, value=4500, step=100)
-        conv_rate = st.slider("Projected Conversion Rate (%)", min_value=0.5, max_value=25.0, value=float(cohort_meta['default_conversion']), step=0.5)
+        audience_pool = st.number_input("Reachable Audience Pool", min_value=100, max_value=50000, value=4500, step=100)
+        conv_rate = st.slider("Conversion Rate (%)", min_value=0.5, max_value=25.0, value=float(cohort_meta['default_conversion']), step=0.5)
         avg_basket = st.slider("Average Order Value ($ AOV)", min_value=20.0, max_value=1000.0, value=float(cohort_meta['roi_archetype_value']), step=10.0)
 
         st.markdown('</div>', unsafe_allow_html=True)
 
     with roi_col2:
-        # Financial math
+        # Mathematical computation
         converted_shoppers = int(audience_pool * (conv_rate / 100.0))
         gross_revenue = converted_shoppers * avg_basket
         net_profit = gross_revenue - campaign_budget
         roi_percentage = (net_profit / campaign_budget) * 100.0 if campaign_budget > 0 else 0.0
 
         st.markdown(f"""
-        <div class="bento-card">
-            <div class="bento-header">FINANCIAL PROJECTIONS // {cohort_meta['name'].upper()}</div>
-            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.8rem; margin-top: 1rem;">
-                <div class="metric-box">
-                    <div class="metric-val">{converted_shoppers:,}</div>
-                    <div class="metric-label">New Shoppers</div>
+        <div class="swiss-card" style="border-top: 4px solid {cohort_meta['color']};">
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; color: #71717A; text-transform: uppercase;">
+                FINANCIAL OUTCOMES // {cohort_meta['name']}
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.8rem; margin: 1.2rem 0;">
+                <div class="swiss-metric-tile">
+                    <div class="swiss-metric-number">{converted_shoppers:,}</div>
+                    <div class="swiss-metric-label">New Customers</div>
                 </div>
-                <div class="metric-box">
-                    <div class="metric-val" style="color: {cohort_meta['color']};">${gross_revenue:,.0f}</div>
-                    <div class="metric-label">Gross Revenue</div>
+                <div class="swiss-metric-tile">
+                    <div class="swiss-metric-number" style="color: {cohort_meta['color']};">${gross_revenue:,.0f}</div>
+                    <div class="swiss-metric-label">Gross Revenue</div>
                 </div>
-                <div class="metric-box">
-                    <div class="metric-val" style="color: {'#c8ff32' if net_profit > 0 else '#f43f5e'};">${net_profit:,.0f}</div>
-                    <div class="metric-label">Net Profit</div>
+                <div class="swiss-metric-tile">
+                    <div class="swiss-metric-number" style="color: {'#059669' if net_profit > 0 else '#FF2D20'};">${net_profit:,.0f}</div>
+                    <div class="swiss-metric-label">Net Profit</div>
                 </div>
-                <div class="metric-box">
-                    <div class="metric-val" style="color: {'#c8ff32' if roi_percentage > 0 else '#f43f5e'};">{roi_percentage:+.1f}%</div>
-                    <div class="metric-label">Projected ROI</div>
+                <div class="swiss-metric-tile">
+                    <div class="swiss-metric-number" style="color: {'#059669' if roi_percentage > 0 else '#FF2D20'};">{roi_percentage:+.1f}%</div>
+                    <div class="swiss-metric-label">Projected ROI</div>
                 </div>
             </div>
 
-            <div class="strategy-box">
-                <div style="font-weight: 600; color: #f2f0e7; margin-bottom: 0.3rem;">
-                    💡 Executive Strategic Assessment:
+            <div style="border: 1px solid #18181B; padding: 1.2rem; background: #FAFAFA; margin-top: 1rem;">
+                <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; font-weight: 700; color: #09090B; text-transform: uppercase; margin-bottom: 0.4rem;">
+                    Executive Commercial Appraisal:
                 </div>
-                <div style="font-size: 0.88rem; color: #a1a1aa; line-height: 1.6;">
-                    Targeting <b>{cohort_meta['name']}</b> with a <b>${campaign_budget:,.0f}</b> capital injection yields
-                    an expected <b>${gross_revenue:,.0f}</b> in gross merchandise value (GMV).
-                    With an expected CAC (Customer Acquisition Cost) of <b>${(campaign_budget / max(1, converted_shoppers)):.2f}</b>
-                    against an AOV of <b>${avg_basket:.2f}</b>, this represents a 
-                    <span style="color: {cohort_meta['color']}; font-weight: 600;">{'high-yield profitable' if roi_percentage > 100 else 'viable' if roi_percentage > 0 else 'sub-optimal'}</span>
-                    campaign deployment.
+                <div style="font-size: 0.9rem; color: #3F3F46; line-height: 1.6;">
+                    Deploying <b>${campaign_budget:,.0f}</b> into the <b>{cohort_meta['name']}</b> segment generates an estimated
+                    <b>${gross_revenue:,.0f}</b> in gross merchandise value (GMV).
+                    With a Customer Acquisition Cost (CAC) of <b>${(campaign_budget / max(1, converted_shoppers)):.2f}</b> against an AOV of <b>${avg_basket:.2f}</b>,
+                    this campaign displays an estimated ROI of <b>{roi_percentage:+.1f}%</b>.
                 </div>
             </div>
         </div>
@@ -795,71 +870,71 @@ with tab_roi:
 
 
 # -----------------------------------------------------------------------------
-# TAB 4: EVALUATION TELEMETRY
+# TAB 4: EVALUATION BENCHMARKS
 # -----------------------------------------------------------------------------
 with tab_metrics:
-    st.markdown('<div class="bento-header">UNSUPERVISED CLUSTER VALIDATION BENCHMARKS</div>', unsafe_allow_html=True)
+    st.markdown('<div class="swiss-section-header">04 // QUANTITATIVE CLUSTERING BENCHMARKS</div>', unsafe_allow_html=True)
     st.write(
-        "Quantitative cluster separation metrics measured across all 200 mall shopper observations. "
-        "Strictly reflects empirical clustering geometry."
+        "Rigorous geometric cluster validation metrics calculated across all 200 empirical observations. "
+        "All measurements strictly reflect unsupervised data topology."
     )
 
-    m_col1, m_col2, m_col3, m_col4 = st.columns(4)
-    with m_col1:
+    m1, m2, m3, m4 = st.columns(4)
+    with m1:
         st.markdown("""
-        <div class="metric-box">
-            <div class="metric-val">0.4166</div>
-            <div class="metric-label">Silhouette Score</div>
-            <div style="font-size: 0.7rem; color: #8e9483; margin-top: 0.3rem;">Well above random baseline (>0.35)</div>
+        <div class="swiss-metric-tile" style="border-top: 3px solid #0047FF;">
+            <div class="swiss-metric-number">0.4166</div>
+            <div class="swiss-metric-label">Silhouette Coefficient</div>
+            <div style="font-size: 0.72rem; color: #71717A; margin-top: 0.3rem;">Significantly exceeds random threshold (>0.35)</div>
         </div>
         """, unsafe_allow_html=True)
-    with m_col2:
+    with m2:
         st.markdown("""
-        <div class="metric-box">
-            <div class="metric-val">0.8841</div>
-            <div class="metric-label">Davies-Bouldin Index</div>
-            <div style="font-size: 0.7rem; color: #8e9483; margin-top: 0.3rem;">Lower is better (< 1.0 indicates separation)</div>
+        <div class="swiss-metric-tile" style="border-top: 3px solid #059669;">
+            <div class="swiss-metric-number">0.8841</div>
+            <div class="swiss-metric-label">Davies-Bouldin Index</div>
+            <div style="font-size: 0.72rem; color: #71717A; margin-top: 0.3rem;">Lower is better (< 1.0 confirms tight cluster separation)</div>
         </div>
         """, unsafe_allow_html=True)
-    with m_col3:
+    with m3:
         st.markdown("""
-        <div class="metric-box">
-            <div class="metric-val">125.74</div>
-            <div class="metric-label">Calinski-Harabasz Score</div>
-            <div style="font-size: 0.7rem; color: #8e9483; margin-top: 0.3rem;">Strong ratio of between/within cluster variance</div>
+        <div class="swiss-metric-tile" style="border-top: 3px solid #FF2D20;">
+            <div class="swiss-metric-number">125.74</div>
+            <div class="swiss-metric-label">Calinski-Harabasz Score</div>
+            <div style="font-size: 0.72rem; color: #71717A; margin-top: 0.3rem;">Elevated ratio of inter-to-intra cluster dispersion</div>
         </div>
         """, unsafe_allow_html=True)
-    with m_col4:
+    with m4:
         st.markdown("""
-        <div class="metric-box">
-            <div class="metric-val">k = 5</div>
-            <div class="metric-label">Optimal Clusters</div>
-            <div style="font-size: 0.7rem; color: #8e9483; margin-top: 0.3rem;">Selected via Elbow curve & Silhouette analysis</div>
+        <div class="swiss-metric-tile" style="border-top: 3px solid #18181B;">
+            <div class="swiss-metric-number">k = 5</div>
+            <div class="swiss-metric-label">Optimal Cardinality</div>
+            <div style="font-size: 0.72rem; color: #71717A; margin-top: 0.3rem;">Confirmed via dual Elbow & Silhouette analysis</div>
         </div>
         """, unsafe_allow_html=True)
 
-    st.markdown('<div class="bento-header" style="margin-top: 1.5rem;">CENTROIDS REFERENCE TABLE (REAL PHYSICAL UNITS)</div>', unsafe_allow_html=True)
+    st.markdown('<div class="swiss-section-header" style="margin-top: 1.8rem;">CENTROIDS REFERENCE TABLE (REAL PHYSICAL UNITS)</div>', unsafe_allow_html=True)
 
     df_display = df_centroids.copy()
-    df_display['Segment Archetype'] = [CLUSTER_METADATA[i]['name'] for i in range(5)]
+    df_display['Segment Archetype'] = [SWISS_METADATA[i]['name'] for i in range(5)]
     df_display['Shopper Count (n)'] = df_raw['Cluster'].value_counts().sort_index().values
-    df_display['Percent of Total'] = (df_display['Shopper Count (n)'] / 200.0 * 100).round(1).astype(str) + "%"
-    df_display = df_display[['Cluster', 'Segment Archetype', 'Shopper Count (n)', 'Percent of Total', 'Age', 'Annual Income (k$)', 'Spending Score (1-100)']]
+    df_display['Share %'] = (df_display['Shopper Count (n)'] / 200.0 * 100).round(1).astype(str) + "%"
+    df_display = df_display[['Cluster', 'Segment Archetype', 'Shopper Count (n)', 'Share %', 'Age', 'Annual Income (k$)', 'Spending Score (1-100)']]
 
     st.dataframe(df_display.round(2), use_container_width=True, hide_index=True)
 
     st.markdown("""
-    > [!IMPORTANT]
-    > **Unsupervised Evaluation Integrity:** Unsupervised clustering does not possess ground-truth labels or an accuracy percentage. 
-    > True validation relies on mathematical cluster separation metrics (Silhouette 0.4166) paired with business-actionable archetype differentiation.
+    > [!NOTE]
+    > **Unsupervised Evaluation Standard:** Because unsupervised learning discovers latent structure rather than predicting historical labels, 
+    > no test split or accuracy metric applies. Validation is established through silhouette separation ($0.4166$) and business interpretability.
     """)
 
 # -----------------------------------------------------------------------------
-# FOOTER
+# FOOTER // SWISS MINIMAL
 # -----------------------------------------------------------------------------
 st.markdown("---")
-f_col1, f_col2 = st.columns([2, 1])
-with f_col1:
-    st.caption("Arithmatrix Virtual Internship Program (AVIP 2026) · Task 3: Customer Segmentation using K-Means Clustering")
-with f_col2:
+f1, f2 = st.columns([2, 1])
+with f1:
+    st.caption("Arithmatrix Virtual Internship Program (AVIP 2026) · Task 3: Customer Segmentation via K-Means++ Clustering")
+with f2:
     st.caption("GitHub: [rshamith777-cpu/AIML_3_CustomerSegmentation_byte](https://github.com/rshamith777-cpu/AIML_3_CustomerSegmentation_byte)")
