@@ -552,123 +552,285 @@ tab_3d, tab_playbook, tab_roi, tab_metrics = st.tabs([
 ])
 
 # -----------------------------------------------------------------------------
-# TAB 1: 3D SPATIAL GALAXY (LUMINOUS SWISS GRAPHIC RENDERING)
+# TAB 1: 3D SPATIAL GALAXY (HIGH-CONTRAST DEEP SPACE VIEWPORT)
 # -----------------------------------------------------------------------------
 with tab_3d:
-    col_vis, col_side = st.columns([2.7, 1.3])
+    # Projection View Selector
+    v_col1, v_col2 = st.columns([2.2, 1.8])
+    with v_col1:
+        view_mode = st.radio(
+            "SPATIAL PROJECTION VIEW:",
+            ["🌌 3D Deep Space Galaxy", "📐 2D Income vs. Spending Plane", "👤 2D Age vs. Spending Plane"],
+            horizontal=True
+        )
+    with v_col2:
+        if "3D" in view_mode:
+            st.markdown("""
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: #71717A; text-align: right; padding-top: 0.8rem;">
+                INTERACTION: <b>CLICK + DRAG</b> to orbit · <b>SCROLL</b> to zoom · <b>HOVER</b> for telemetry
+            </div>
+            """, unsafe_allow_html=True)
+
+    col_vis, col_side = st.columns([2.8, 1.2])
+
+    # Vibrant galaxy palette engineered for deep space contrast
+    GALAXY_COLORS = {
+        0: "#94A3B8",  # Cool Silver Slate
+        1: "#F59E0B",  # Luminous Amber
+        2: "#00E5FF",  # Laser Cyan / Swiss Cobalt
+        3: "#FF334B",  # Vibrant Swiss Vermilion
+        4: "#10B981"   # Spring Emerald
+    }
 
     with col_vis:
         if HAS_PLOTLY:
-            fig = go.Figure()
+            if "3D" in view_mode:
+                # Architectural Swiss darkroom viewport container header
+                st.markdown("""
+                <div style="background: #0B0D11; border: 2px solid #18181B; border-bottom: none; padding: 0.65rem 1rem; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; font-weight: 700; color: #F1F5F9; letter-spacing: 0.08em;">
+                        🌌 DEEP FIELD SPATIAL VIEWPORT // 200 DATA NODES + 5 CENTROID CORES
+                    </div>
+                    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: #00E5FF; font-weight: 600;">
+                        ● STEREO DEPTH ON
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
 
-            # Plot existing 200 mall customers with high-contrast Swiss palette
-            for c_id in range(5):
-                subset = df_raw[df_raw['Cluster'] == c_id]
-                c_meta = SWISS_METADATA[c_id]
+                fig = go.Figure()
+
+                # Plot existing 200 mall customers with glowing high-contrast nodes
+                for c_id in range(5):
+                    subset = df_raw[df_raw['Cluster'] == c_id]
+                    c_meta = SWISS_METADATA[c_id]
+                    node_color = GALAXY_COLORS[c_id]
+                    fig.add_trace(go.Scatter3d(
+                        x=subset['Annual Income (k$)'],
+                        y=subset['Spending Score (1-100)'],
+                        z=subset['Age'],
+                        mode='markers',
+                        name=f"C0{c_id} · {c_meta['name'][:14]}",
+                        marker=dict(
+                            size=5.5,
+                            color=node_color,
+                            opacity=0.88,
+                            line=dict(width=0.8, color='#0B0D11')
+                        ),
+                        hovertemplate=(
+                            f"<b>{c_meta['name']} (C0{c_id})</b><br>"
+                            "Annual Income: $%{x}k<br>"
+                            "Spending Score: %{y}/100<br>"
+                            "Customer Age: %{z} yrs<extra></extra>"
+                        )
+                    ))
+
+                # Plot Cluster Centroids as gleaming white/gold stellar diamonds
                 fig.add_trace(go.Scatter3d(
-                    x=subset['Annual Income (k$)'],
-                    y=subset['Spending Score (1-100)'],
-                    z=subset['Age'],
-                    mode='markers',
-                    name=f"C0{c_id} · {c_meta['name']}",
+                    x=df_centroids['Annual Income (k$)'],
+                    y=df_centroids['Spending Score (1-100)'],
+                    z=df_centroids['Age'],
+                    mode='markers+text',
+                    name='CENTROIDS (REAL UNITS)',
+                    text=[f"CORE 0{i}" for i in range(5)],
+                    textposition="top center",
+                    textfont=dict(family="IBM Plex Mono", size=10, color="#FFFFFF"),
                     marker=dict(
-                        size=5,
-                        color=c_meta['color'],
-                        opacity=0.82,
-                        line=dict(width=0.6, color='#09090B')
+                        size=11,
+                        symbol='diamond',
+                        color='#FFFFFF',
+                        line=dict(width=2.5, color='#F59E0B')
+                    ),
+                    hovertemplate="<b>CENTROID CORE C0%{pointNumber}</b><br>Income: $%{x:.1f}k<br>Spending: %{y:.1f}<br>Age: %{z:.1f} yrs<extra></extra>"
+                ))
+
+                # Project current active target in 3D Euclidean space
+                fig.add_trace(go.Scatter3d(
+                    x=[income],
+                    y=[spending],
+                    z=[age],
+                    mode='markers+text',
+                    name='⚡ ACTIVE TARGET',
+                    text=['ACTIVE TARGET'],
+                    textposition="bottom center",
+                    textfont=dict(family="IBM Plex Mono", size=12, color="#00E5FF"),
+                    marker=dict(
+                        size=15,
+                        symbol='cross',
+                        color="#00E5FF",
+                        line=dict(width=3, color='#FFFFFF')
                     ),
                     hovertemplate=(
-                        f"<b>{c_meta['name']} (C{c_id})</b><br>"
-                        "Annual Income: $%{x}k<br>"
-                        "Spending Score: %{y}/100<br>"
-                        "Customer Age: %{z} yrs<extra></extra>"
+                        "<b>⚡ ACTIVE TARGET</b><br>"
+                        f"Assigned: {meta['name']} (C0{predicted_cluster})<br>"
+                        f"Income: ${income}k<br>"
+                        f"Spending: {spending}/100<br>"
+                        f"Age: {age} yrs<extra></extra>"
                     )
                 ))
 
-            # Plot Cluster Centroids as prominent black diamonds with bold white border
-            fig.add_trace(go.Scatter3d(
-                x=df_centroids['Annual Income (k$)'],
-                y=df_centroids['Spending Score (1-100)'],
-                z=df_centroids['Age'],
-                mode='markers+text',
-                name='CENTROIDS (REAL UNITS)',
-                text=[f"C0{i} CORE" for i in range(5)],
-                textposition="top center",
-                textfont=dict(family="IBM Plex Mono", size=10, color="#09090B"),
-                marker=dict(
-                    size=10,
-                    symbol='diamond',
-                    color='#09090B',
-                    line=dict(width=2, color='#FFFFFF')
-                ),
-                hovertemplate="<b>CENTROID C0%{pointNumber}</b><br>Income: $%{x:.1f}k<br>Spending: %{y:.1f}<br>Age: %{z:.1f} yrs<extra></extra>"
-            ))
-
-            # Project current input user in 3D Euclidean space
-            fig.add_trace(go.Scatter3d(
-                x=[income],
-                y=[spending],
-                z=[age],
-                mode='markers+text',
-                name='⚡ ACTIVE TARGET',
-                text=['ACTIVE TARGET'],
-                textposition="bottom center",
-                textfont=dict(family="IBM Plex Mono", size=12, color="#09090B"),
-                marker=dict(
-                    size=14,
-                    symbol='cross',
-                    color=meta['color'],
-                    line=dict(width=2.5, color='#09090B')
-                ),
-                hovertemplate=(
-                    "<b>⚡ ACTIVE TARGET</b><br>"
-                    f"Segment: {meta['name']} (C{predicted_cluster})<br>"
-                    f"Income: ${income}k<br>"
-                    f"Spending: {spending}/100<br>"
-                    f"Age: {age} yrs<extra></extra>"
+                fig.update_layout(
+                    scene=dict(
+                        xaxis=dict(
+                            title=dict(text="ANNUAL INCOME (k$)", font=dict(family="IBM Plex Mono", size=11, color="#E2E8F0")),
+                            backgroundcolor="#0F1117",
+                            gridcolor="#232833",
+                            showbackground=True,
+                            zerolinecolor="#475569"
+                        ),
+                        yaxis=dict(
+                            title=dict(text="SPENDING SCORE (1-100)", font=dict(family="IBM Plex Mono", size=11, color="#E2E8F0")),
+                            backgroundcolor="#0F1117",
+                            gridcolor="#232833",
+                            showbackground=True,
+                            zerolinecolor="#475569"
+                        ),
+                        zaxis=dict(
+                            title=dict(text="AGE (YEARS)", font=dict(family="IBM Plex Mono", size=11, color="#E2E8F0")),
+                            backgroundcolor="#0F1117",
+                            gridcolor="#232833",
+                            showbackground=True,
+                            zerolinecolor="#475569"
+                        ),
+                        camera=dict(
+                            eye=dict(x=1.75, y=-1.75, z=1.2)
+                        )
+                    ),
+                    paper_bgcolor="#0B0D11",
+                    plot_bgcolor="#0B0D11",
+                    margin=dict(l=0, r=0, t=5, b=0),
+                    legend=dict(
+                        bgcolor="rgba(15, 17, 23, 0.92)",
+                        bordercolor="#232833",
+                        borderwidth=1,
+                        font=dict(family="IBM Plex Mono", color="#E2E8F0", size=10)
+                    ),
+                    height=590
                 )
-            ))
 
-            fig.update_layout(
-                scene=dict(
-                    xaxis=dict(
-                        title=dict(text="ANNUAL INCOME (k$)", font=dict(family="IBM Plex Mono", size=11, color="#09090B")),
-                        backgroundcolor="#FAFAFA",
-                        gridcolor="#E4E4E7",
-                        showbackground=True,
-                        zerolinecolor="#18181B"
-                    ),
-                    yaxis=dict(
-                        title=dict(text="SPENDING SCORE (1-100)", font=dict(family="IBM Plex Mono", size=11, color="#09090B")),
-                        backgroundcolor="#FAFAFA",
-                        gridcolor="#E4E4E7",
-                        showbackground=True,
-                        zerolinecolor="#18181B"
-                    ),
-                    zaxis=dict(
-                        title=dict(text="AGE (YEARS)", font=dict(family="IBM Plex Mono", size=11, color="#09090B")),
-                        backgroundcolor="#FAFAFA",
-                        gridcolor="#E4E4E7",
-                        showbackground=True,
-                        zerolinecolor="#18181B"
-                    ),
-                    camera=dict(
-                        eye=dict(x=1.7, y=-1.7, z=1.2)
-                    )
-                ),
-                paper_bgcolor="#FFFFFF",
-                plot_bgcolor="#FAFAFA",
-                margin=dict(l=0, r=0, t=10, b=0),
-                legend=dict(
-                    bgcolor="rgba(255, 255, 255, 0.95)",
-                    bordercolor="#18181B",
-                    borderwidth=1,
-                    font=dict(family="IBM Plex Mono", color="#09090B", size=10)
-                ),
-                height=590
-            )
+                st.plotly_chart(fig, use_container_width=True)
 
-            st.plotly_chart(fig, use_container_width=True)
+            elif "Income vs. Spending" in view_mode:
+                # 2D Architectural Floorplan
+                st.markdown("""
+                <div style="background: #0B0D11; border: 2px solid #18181B; border-bottom: none; padding: 0.65rem 1rem; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; font-weight: 700; color: #F1F5F9; letter-spacing: 0.08em;">
+                        📐 2D FLOORPLAN // ANNUAL INCOME (k$) vs SPENDING SCORE (1-100)
+                    </div>
+                    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: #10B981; font-weight: 600;">
+                        ● ORTHOGRAPHIC
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+
+                fig2d = go.Figure()
+                for c_id in range(5):
+                    sub = df_raw[df_raw['Cluster'] == c_id]
+                    fig2d.add_trace(go.Scatter(
+                        x=sub['Annual Income (k$)'],
+                        y=sub['Spending Score (1-100)'],
+                        mode='markers',
+                        name=f"C0{c_id} · {SWISS_METADATA[c_id]['name'][:14]}",
+                        marker=dict(size=8, color=GALAXY_COLORS[c_id], opacity=0.85, line=dict(width=0.8, color="#0B0D11")),
+                        hovertemplate=f"<b>{SWISS_METADATA[c_id]['name']}</b><br>Income: $%{{x}}k<br>Spending: %{{y}}<extra></extra>"
+                    ))
+
+                # Centroids 2D
+                fig2d.add_trace(go.Scatter(
+                    x=df_centroids['Annual Income (k$)'],
+                    y=df_centroids['Spending Score (1-100)'],
+                    mode='markers+text',
+                    name='Centroids',
+                    text=[f"C0{i}" for i in range(5)],
+                    textposition="top center",
+                    textfont=dict(family="IBM Plex Mono", size=11, color="#FFFFFF"),
+                    marker=dict(size=14, symbol='diamond', color='#FFFFFF', line=dict(width=2, color='#F59E0B'))
+                ))
+
+                # Active target
+                fig2d.add_trace(go.Scatter(
+                    x=[income],
+                    y=[spending],
+                    mode='markers+text',
+                    name='Active Target',
+                    text=['TARGET'],
+                    textposition="bottom center",
+                    textfont=dict(family="IBM Plex Mono", size=12, color="#00E5FF"),
+                    marker=dict(size=18, symbol='cross', color='#00E5FF', line=dict(width=3, color='#FFFFFF'))
+                ))
+
+                fig2d.update_layout(
+                    xaxis=dict(title=dict(text="ANNUAL INCOME (k$)", font=dict(family="IBM Plex Mono", color="#E2E8F0")), gridcolor="#232833", zerolinecolor="#475569"),
+                    yaxis=dict(title=dict(text="SPENDING SCORE (1-100)", font=dict(family="IBM Plex Mono", color="#E2E8F0")), gridcolor="#232833", zerolinecolor="#475569"),
+                    paper_bgcolor="#0B0D11",
+                    plot_bgcolor="#0F1117",
+                    font=dict(color="#E2E8F0"),
+                    margin=dict(l=40, r=20, t=10, b=40),
+                    height=590,
+                    legend=dict(bgcolor="rgba(15, 17, 23, 0.92)", bordercolor="#232833", borderwidth=1)
+                )
+                st.plotly_chart(fig2d, use_container_width=True)
+
+            else:
+                # 2D Age vs Spending
+                st.markdown("""
+                <div style="background: #0B0D11; border: 2px solid #18181B; border-bottom: none; padding: 0.65rem 1rem; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; font-weight: 700; color: #F1F5F9; letter-spacing: 0.08em;">
+                        👤 2D DEMOGRAPHIC PLANE // AGE (YEARS) vs SPENDING SCORE (1-100)
+                    </div>
+                    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: #FF334B; font-weight: 600;">
+                        ● DEMOGRAPHIC
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+
+                fig_age = go.Figure()
+                for c_id in range(5):
+                    sub = df_raw[df_raw['Cluster'] == c_id]
+                    fig_age.add_trace(go.Scatter(
+                        x=sub['Age'],
+                        y=sub['Spending Score (1-100)'],
+                        mode='markers',
+                        name=f"C0{c_id} · {SWISS_METADATA[c_id]['name'][:14]}",
+                        marker=dict(size=8, color=GALAXY_COLORS[c_id], opacity=0.85, line=dict(width=0.8, color="#0B0D11")),
+                        hovertemplate=f"<b>{SWISS_METADATA[c_id]['name']}</b><br>Age: %{{x}} yrs<br>Spending: %{{y}}<extra></extra>"
+                    ))
+
+                # Centroids 2D
+                fig_age.add_trace(go.Scatter(
+                    x=df_centroids['Age'],
+                    y=df_centroids['Spending Score (1-100)'],
+                    mode='markers+text',
+                    name='Centroids',
+                    text=[f"C0{i}" for i in range(5)],
+                    textposition="top center",
+                    textfont=dict(family="IBM Plex Mono", size=11, color="#FFFFFF"),
+                    marker=dict(size=14, symbol='diamond', color='#FFFFFF', line=dict(width=2, color='#F59E0B'))
+                ))
+
+                # Active target
+                fig_age.add_trace(go.Scatter(
+                    x=[age],
+                    y=[spending],
+                    mode='markers+text',
+                    name='Active Target',
+                    text=['TARGET'],
+                    textposition="bottom center",
+                    textfont=dict(family="IBM Plex Mono", size=12, color="#00E5FF"),
+                    marker=dict(size=18, symbol='cross', color='#00E5FF', line=dict(width=3, color='#FFFFFF'))
+                ))
+
+                fig_age.update_layout(
+                    xaxis=dict(title=dict(text="CUSTOMER AGE (YEARS)", font=dict(family="IBM Plex Mono", color="#E2E8F0")), gridcolor="#232833", zerolinecolor="#475569"),
+                    yaxis=dict(title=dict(text="SPENDING SCORE (1-100)", font=dict(family="IBM Plex Mono", color="#E2E8F0")), gridcolor="#232833", zerolinecolor="#475569"),
+                    paper_bgcolor="#0B0D11",
+                    plot_bgcolor="#0F1117",
+                    font=dict(color="#E2E8F0"),
+                    margin=dict(l=40, r=20, t=10, b=40),
+                    height=590,
+                    legend=dict(bgcolor="rgba(15, 17, 23, 0.92)", bordercolor="#232833", borderwidth=1)
+                )
+                st.plotly_chart(fig_age, use_container_width=True)
+
         else:
             st.warning("Plotly is initializing...")
 
